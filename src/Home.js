@@ -21,11 +21,7 @@ async function refreshAccessToken() {
       method: 'POST',
       credentials: "include",
     });
-    if(response.ok) {
-      return "ok";
-    } else {
-      return null;
-    }
+    return response.ok;
   } catch (error) {
       console.error('Error:', error);
   }
@@ -37,13 +33,14 @@ function Home() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userData, setUserData] = useState({});
+  const [timeData, setTimeData] = useState({});
   const [logout, setLogout] = useState(false);
 
   useEffect(() => {
-    const init = async () => {
+    const init = async () => {console.log("useEffect")
       try {
-        const accessToken = await refreshAccessToken();
-        if(accessToken) {
+        const isOk = await refreshAccessToken();
+        if(isOk) {
           setAuthorized(1);   
           onUserAPI();       
         } else {
@@ -57,7 +54,7 @@ function Home() {
     init();
   }, []);
 
-  if(logout) {
+  if(logout) {console.log("logout")
     fetch("https://localhost/logout", {
       method: "POST",
       credentials: "include",
@@ -72,24 +69,20 @@ function Home() {
     .catch((error) => { console.error('Error:', error); })
   }
 
-  const onUserAPI = async () => {
+  const onUserAPI = async () => {console.log("onUserAPI")
     try {
-      const accessToken = await refreshAccessToken();
-      if(accessToken) {
-        fetch("https://localhost/my", {
+      const isOk = await refreshAccessToken();
+      if(isOk) {
+        fetch("https://localhost/user", {
           method: "GET",
           credentials: "include",
-          headers: { 
-            'Content-Type': 'application/json', 
-            'access' : accessToken
-          },
         })
         .then((response) => { 
           if (response.ok) { 
             return response.json(); 
           }
         })
-        .then((data) => { console.log('data', data)
+        .then((data) => { 
           setUserData(data);
         })
         .catch((error) => { console.error('Error:', error); })
@@ -100,6 +93,34 @@ function Home() {
     }
   };
 
+  const onTimeAPI = async () => {console.log("onTimeAPI")
+    try {
+      const isOk = await refreshAccessToken();
+      if(isOk) {
+        fetch("https://localhost/time", {
+          method: "GET",
+          credentials: "include",
+        })
+        .then((response) => { 
+          if (response.ok) { 
+            return response.json(); 
+          }
+        })
+        .then((data) => { console.log("timeData", data)
+          setTimeData(data);
+        })
+        .catch((error) => { console.error('Error:', error); })
+      } 
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+    }
+  };
+
+  const resetTime = () => {
+    onTimeAPI();
+  }
+
   if(authorized === 1) {
 
     return (
@@ -107,7 +128,7 @@ function Home() {
         <Header setLogout={setLogout}/>
         <div className="flex flex-1">
           <Nav />
-          <Body prop={userData}/>
+          <Body user={userData} time={timeData} resetTime={resetTime}/>
           <Side />
         </div>
         <Footer />
