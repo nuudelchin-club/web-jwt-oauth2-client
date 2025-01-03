@@ -1,0 +1,37 @@
+.main_page {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.main_panel {    
+    width: 640px;
+    height: 100%;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+}
+
+.main_panel .header, .footer {
+    background-color: #777;    
+    width: 100%;
+    height: 50px; /* Set height of header and footer */
+    line-height: 50px; /* Center text vertically */
+    flex-shrink: 0; /* Prevent shrinking */
+    position: sticky; /* Ensures header and footer stick in their spots */
+    z-index: 99; /* Keeps header/footer above scrolling content */
+}
+
+.main_panel .header {
+    top: 0;
+}
+
+.main_panel .footer {
+    bottom: 0;
+}
+
+.main_panel .content {
+    background-color: #fff;
+    flex-grow: 1; /* Allows content to take the remaining space */
+    overflow-y: auto; /* Enables vertical scrolling for content */    
+}

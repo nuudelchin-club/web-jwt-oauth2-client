@@ -1,0 +1,26 @@
+.header {
+    
+    width: 100%;
+    display: flex;
+}
+
+.header div {
+    flex: 1;        
+}
+
+.header .wrap {
+    display: flex;
+    padding: 5px;
+}
+
+.header .wrap img{
+    cursor: pointer;
+}
+
+.header .logo {
+    justify-content: flex-start;
+}
+
+.header .logo img{
+    padding-left: 16px;
+}
