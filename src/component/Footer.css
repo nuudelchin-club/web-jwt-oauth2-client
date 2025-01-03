@@ -11,28 +11,13 @@
 .footer .wrap {
     display: flex;    
     padding: 5px;
+    justify-content: center;
 }
 
 .footer .wrap img{
     cursor: pointer;
 }
 
-.footer .logo {
-    justify-content: flex-start;
-}
-
-.footer .logo img{
-    padding-left: 16px;
-}
-
-.footer .add {
-    justify-content: center;
-}
-
-.footer .profile {
-    justify-content: flex-end;
-}
-
 .footer .profile img{
-    padding-right: 16px;
+    border-radius: 50%;
 }

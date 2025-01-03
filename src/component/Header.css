@@ -11,16 +11,9 @@
 .header .wrap {
     display: flex;
     padding: 5px;
+    justify-content: center;
 }
 
 .header .wrap img{
     cursor: pointer;
-}
-
-.header .logo {
-    justify-content: flex-start;
-}
-
-.header .logo img{
-    padding-left: 16px;
 }
