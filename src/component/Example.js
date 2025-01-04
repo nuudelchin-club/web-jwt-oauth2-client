@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './Add.css';
 
-function Add({refreshAccessToken}) {
+function Example({refreshAccessToken}) {
 
   const [timeData, setTimeData] = useState({});
 
@@ -46,25 +45,20 @@ function Add({refreshAccessToken}) {
 
   return (
     <div className='content'>
-        <ul>            
-            <li>
-                <p>
-                Зар оруулах
-                </p>                
-            </li>
-            <li>
-                <button onClick={() => { onTimeAPI(); } }>
-                    Цаг
-                </button>
-            </li>
-            <li>
-                <p>
-                {timeData.time}
-                </p>                
-            </li>
-        </ul>                                                
+        <ul>
+          <li>
+              <button onClick={() => { onTimeAPI(); } }>
+                  Time
+              </button>
+          </li>
+          <li>
+              <p>
+                  {timeData.time}
+              </p>
+          </li>                                               
+        </ul>        
     </div>
   );
 }
 
-export default Add;
+export default Example;

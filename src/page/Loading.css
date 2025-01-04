@@ -12,7 +12,7 @@
     justify-content: center;
     width: 640px;
     height: 100vh;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .loading_box {
@@ -31,7 +31,7 @@
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .loading_box .wrap p {

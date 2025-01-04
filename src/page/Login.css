@@ -12,7 +12,7 @@
     justify-content: center;
     width: 640px;
     height: 100vh;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .login_box {
@@ -31,12 +31,7 @@
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
-    border: 1px solid black;
-}
-
-.login_box .wrap p {
-    font-size: 18px;
-    font-weight: 500;
+    /* border: 1px solid black; */
 }
 
 .login_box .wrap button {

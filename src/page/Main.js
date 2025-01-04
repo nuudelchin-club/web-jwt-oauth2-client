@@ -4,9 +4,11 @@ import Content from '../component/Content';
 import Menu from '../component/Menu';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
+import Post from '../component/Post';
 import About from '../component/About';
 import Contact from '../component/Contact';
-import Add from '../component/Add';
+import Example from '../component/Example';
+import Account from '../component/Account';
 
 function Main({setAuthorized, refreshAccessToken}) {
 
@@ -57,11 +59,13 @@ function Main({setAuthorized, refreshAccessToken}) {
       <div className='main_panel'>
         <Header />
 
-        {currView === 0 && <Content />}
+        {currView === 0 && <Content refreshAccessToken={refreshAccessToken} />}
         {currView === 1 && <Menu setAuthorized={setAuthorized} setCurrView={setCurrView} />}
         {currView === 11 && <About />}
         {currView === 12 && <Contact />}
-        {currView === 2 && <Add refreshAccessToken={refreshAccessToken} />}
+        {currView === 13 && <Example refreshAccessToken={refreshAccessToken} />}
+        {currView === 14 && <Account refreshAccessToken={refreshAccessToken} />}
+        {currView === 2 && <Post refreshAccessToken={refreshAccessToken} setCurrView={setCurrView} />}
         
         <Footer userData={userData} setCurrView={setCurrView} />
       </div>

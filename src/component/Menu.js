@@ -35,6 +35,16 @@ function Menu({setAuthorized, setCurrView}) {
                     Холбоо барих
                 </button>
             </li>
+            <li>
+                <button onClick={() => { setCurrView(13) } }>
+                    Example
+                </button>
+            </li>
+            <li>
+                <button onClick={() => { setCurrView(14) } }>
+                    Account
+                </button>
+            </li>
         </ul>                                                
     </div>
   );

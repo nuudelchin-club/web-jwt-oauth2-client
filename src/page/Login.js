@@ -17,7 +17,7 @@ function Login() {
             <div className='login_panel'>
                 <div className='login_box'>
                     <div className='wrap'>
-                        <p>Нэвтрэх</p>
+                        <h2>Нэвтрэх</h2>
                         <button
                             onClick={onGoogleLogin}
                             className='google'>
