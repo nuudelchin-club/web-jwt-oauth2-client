@@ -1,42 +1,31 @@
 import React, { useEffect, useState } from 'react';
 
-function Example({refreshAccessToken}) {
+function Example() {
 
   const [timeData, setTimeData] = useState({});
 
   useEffect(() => {
     const init = async () => {
-      try {
-        const isOk = await refreshAccessToken();
-        if(isOk) {
-          onTimeAPI();
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-      }
+      onTimeAPI();
     };
     init();
   }, []);
 
   const onTimeAPI = async () => {console.log("onTimeAPI")
     try {
-      const isOk = await refreshAccessToken();
-      if(isOk) {
-        fetch("https://localhost/time", {
-          method: "GET",
-          credentials: "include",
-        })
-        .then((response) => { 
-          if (response.ok) { 
-            return response.json(); 
-          }
-        })
-        .then((data) => {
-          setTimeData(data);
-        })
-        .catch((error) => { console.error('Error:', error); })
-      } 
+      fetch("https://localhost/time", {
+        method: "GET",
+        credentials: "include",
+      })
+      .then((response) => { 
+        if (response.ok) { 
+          return response.json(); 
+        }
+      })
+      .then((data) => {
+        setTimeData(data);
+      })
+      .catch((error) => { console.error('Error:', error); })
     } catch (error) {
       console.error('Error:', error);
     } finally {

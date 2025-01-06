@@ -16,38 +16,40 @@ function Main({setAuthorized, refreshAccessToken}) {
   const [currView, setCurrView] = useState(0);
 
   useEffect(() => {
-    const init = async () => {
-      try {
-        const isOk = await refreshAccessToken();
-        if(isOk) {
-          onUserAPI();
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-      }
-    };
-    init();
+    onUserAPI();
   }, []);
+
+  // useEffect(() => {
+  //   const init = async () => {
+  //     try {
+  //       await refreshAccessToken();
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //     } finally {
+  //     }
+  //   };
+  //   init();
+  // }, [currView]);
+
+  useEffect(() => {console.log("refreshAccessToken")
+    refreshAccessToken();
+  }, [currView]);
 
   const onUserAPI = async () => {console.log("onUserAPI")
     try {
-      const isOk = await refreshAccessToken();
-      if(isOk) {
-        fetch("https://localhost/user", {
-          method: "GET",
-          credentials: "include",
-        })
-        .then((response) => { 
-          if (response.ok) { 
-            return response.json(); 
-          }
-        })
-        .then((data) => { 
-          setUserData(data);
-        })
-        .catch((error) => { console.error('Error:', error); })
-      } 
+      fetch("https://localhost/user", {
+        method: "GET",
+        credentials: "include",
+      })
+      .then((response) => { 
+        if (response.ok) { 
+          return response.json(); 
+        }
+      })
+      .then((data) => { 
+        setUserData(data);
+      })
+      .catch((error) => { console.error('Error:', error); })
     } catch (error) {
       console.error('Error:', error);
     } finally {
@@ -59,13 +61,13 @@ function Main({setAuthorized, refreshAccessToken}) {
       <div className='main_panel'>
         <Header />
 
-        {currView === 0 && <Content refreshAccessToken={refreshAccessToken} />}
+        {currView === 0 && <Content />}
         {currView === 1 && <Menu setAuthorized={setAuthorized} setCurrView={setCurrView} />}
         {currView === 11 && <About />}
         {currView === 12 && <Contact />}
-        {currView === 13 && <Example refreshAccessToken={refreshAccessToken} />}
-        {currView === 14 && <Account refreshAccessToken={refreshAccessToken} />}
-        {currView === 2 && <Post refreshAccessToken={refreshAccessToken} setCurrView={setCurrView} />}
+        {currView === 13 && <Example />}
+        {currView === 14 && <Account />}
+        {currView === 2 && <Post setCurrView={setCurrView} />}
         
         <Footer userData={userData} setCurrView={setCurrView} />
       </div>

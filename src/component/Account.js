@@ -1,42 +1,31 @@
 import React, { useEffect, useState } from 'react';
 
-function Account({refreshAccessToken}) {
+function Account() {
 
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
     const init = async () => {
-      try {
-        const isOk = await refreshAccessToken();
-        if(isOk) {
-          onUserAPI();
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-      }
+      onUserAPI();
     };
     init();
   }, []);
 
   const onUserAPI = async () => {console.log("onUserAPI")
     try {
-      const isOk = await refreshAccessToken();
-      if(isOk) {
-        fetch("https://localhost/user", {
-          method: "GET",
-          credentials: "include",
-        })
-        .then((response) => { 
-          if (response.ok) { 
-            return response.json(); 
-          }
-        })
-        .then((data) => { 
-          setUserData(data);
-        })
-        .catch((error) => { console.error('Error:', error); })
-      } 
+      fetch("https://localhost/user", {
+        method: "GET",
+        credentials: "include",
+      })
+      .then((response) => { 
+        if (response.ok) { 
+          return response.json(); 
+        }
+      })
+      .then((data) => { 
+        setUserData(data);
+      })
+      .catch((error) => { console.error('Error:', error); })
     } catch (error) {
       console.error('Error:', error);
     } finally {
