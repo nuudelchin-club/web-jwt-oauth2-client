@@ -5,10 +5,7 @@ function Account() {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    const init = async () => {
-      onUserAPI();
-    };
-    init();
+    onUserAPI();
   }, []);
 
   const onUserAPI = async () => {console.log("onUserAPI")

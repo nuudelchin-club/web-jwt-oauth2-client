@@ -5,10 +5,7 @@ function Example() {
   const [timeData, setTimeData] = useState({});
 
   useEffect(() => {
-    const init = async () => {
-      onTimeAPI();
-    };
-    init();
+    onTimeAPI();
   }, []);
 
   const onTimeAPI = async () => {console.log("onTimeAPI")

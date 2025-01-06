@@ -19,20 +19,19 @@ function Main({setAuthorized, refreshAccessToken}) {
     onUserAPI();
   }, []);
 
-  // useEffect(() => {
-  //   const init = async () => {
-  //     try {
-  //       await refreshAccessToken();
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //     } finally {
-  //     }
-  //   };
-  //   init();
-  // }, [currView]);
-
   useEffect(() => {console.log("refreshAccessToken")
-    refreshAccessToken();
+    const init = async () => {
+      try {
+        const isOk = await refreshAccessToken();
+        if(!isOk) {
+          setAuthorized(2);
+        } 
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+      }
+    };
+    init();
   }, [currView]);
 
   const onUserAPI = async () => {console.log("onUserAPI")
@@ -67,7 +66,7 @@ function Main({setAuthorized, refreshAccessToken}) {
         {currView === 12 && <Contact />}
         {currView === 13 && <Example />}
         {currView === 14 && <Account />}
-        {currView === 2 && <Post setCurrView={setCurrView} />}
+        {currView === 2 && <Post refreshAccessToken={refreshAccessToken} setCurrView={setCurrView} />}
         
         <Footer userData={userData} setCurrView={setCurrView} />
       </div>

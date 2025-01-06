@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import './Post.css';
 
-function Post({setCurrView}) {
+function Post({refreshAccessToken, setCurrView}) {
 
   const onUpload = async (input) => {console.log("onUpload", input)
     try {
-      const response = await fetch('https://localhost/upload', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: input,
-        credentials: "include",
-      });
-      
-      if (response.ok) {
-        const responseData = await response.text();
-        alert(responseData);
-        setCurrView(0);
-      }
+      const isOk = await refreshAccessToken();
+      if(isOk) {
+        const response = await fetch('https://localhost/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: input,
+          credentials: "include",
+        });
+        
+        if (response.ok) {
+          const responseData = await response.text();
+          alert(responseData);
+          setCurrView(0);
+        }
+      } 
     } catch (error) {
       console.error('Error:', error);
     } finally {
