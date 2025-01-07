@@ -3,28 +3,32 @@ import './Post.css';
 
 function Post({refreshAccessToken, setCurrView}) {
 
-  const onUpload = async (input) => {console.log("onUpload", input)
+  const onUploadAPI = async (input) => {console.log("onUploadAPI", input)
     try {
-      const isOk = await refreshAccessToken();
-      if(isOk) {
-        const response = await fetch('https://localhost/upload', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: input,
-          credentials: "include",
-        });
-        
-        if (response.ok) {
-          const responseData = await response.text();
-          alert(responseData);
-          setCurrView(0);
-        }
-      } 
+      const response = await fetch('https://localhost/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: input,
+        credentials: "include",
+      });
+      
+      if (response.ok) {
+        const responseData = await response.text();
+        alert(responseData);
+        setCurrView(0);
+      }
     } catch (error) {
       console.error('Error:', error);
     } finally {
     }
   };
+
+  const onUpload = async () => {
+    const isOk = await refreshAccessToken();
+    if(isOk) {
+      onUploadAPI();
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

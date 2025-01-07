@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function Example() {
+function Example({refreshAccessToken, setAuthorized}) {
 
   const [timeData, setTimeData] = useState({});
 
@@ -29,11 +29,20 @@ function Example() {
     }
   };
 
+  const onTime = async () => {
+    const isOk = await refreshAccessToken();
+    if(isOk) {
+      onTimeAPI();
+    } else {
+      setAuthorized(2);
+    }
+  }
+
   return (
     <div className='content'>
         <ul>
           <li>
-              <button onClick={() => { onTimeAPI(); } }>
+              <button onClick={() => { onTime(); } }>
                   Time
               </button>
           </li>

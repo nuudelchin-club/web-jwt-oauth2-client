@@ -23,9 +23,11 @@ function Main({setAuthorized, refreshAccessToken}) {
     const init = async () => {
       try {
         const isOk = await refreshAccessToken();
-        if(!isOk) {
+        if(isOk) {
+          
+        } else {
           setAuthorized(2);
-        } 
+        }
       } catch (error) {
         console.error('Error:', error);
       } finally {
@@ -64,7 +66,7 @@ function Main({setAuthorized, refreshAccessToken}) {
         {currView === 1 && <Menu setAuthorized={setAuthorized} setCurrView={setCurrView} />}
         {currView === 11 && <About />}
         {currView === 12 && <Contact />}
-        {currView === 13 && <Example />}
+        {currView === 13 && <Example refreshAccessToken={refreshAccessToken} setAuthorized={setAuthorized} />}
         {currView === 14 && <Account />}
         {currView === 2 && <Post refreshAccessToken={refreshAccessToken} setCurrView={setCurrView} />}
         
