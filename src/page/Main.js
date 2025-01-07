@@ -60,9 +60,9 @@ function Main({setAuthorized, refreshAccessToken}) {
   return (
     <div className='main_page'>
       <div className='main_panel'>
-        <Header />
+        {/* <Header /> */}
 
-        {currView === 0 && <Content />}
+        {currView === 0 && <Content userData={userData}/>}
         {currView === 1 && <Menu setAuthorized={setAuthorized} setCurrView={setCurrView} />}
         {currView === 11 && <About />}
         {currView === 12 && <Contact />}

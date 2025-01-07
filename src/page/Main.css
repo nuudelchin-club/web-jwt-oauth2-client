@@ -36,6 +36,7 @@
     background-color: #f2f4f7;
     flex-grow: 1; /* Allows content to take the remaining space */
     overflow-y: auto; /* Enables vertical scrolling for content */    
+    padding: 10px;
     /* margin-top: 1px;
     margin-bottom: 1px; */
 }

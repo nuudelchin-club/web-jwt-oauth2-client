@@ -23,10 +23,10 @@ function Post({refreshAccessToken, setCurrView}) {
     }
   };
 
-  const onUpload = async () => {
+  const onUpload = async (input) => {
     const isOk = await refreshAccessToken();
     if(isOk) {
-      onUploadAPI();
+      onUploadAPI(input);
     }
   }
 

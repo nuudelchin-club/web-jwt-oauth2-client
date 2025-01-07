@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './Content.css';
 
-function Content() {
+function Content({userData}) {
 
-    const [listData, setListData] = useState([]);
+    const [postDataList, setPostDataList] = useState([]);
 
     useEffect(() => {
-        const init = async () => {
-          onGetAllList();
-        };
-        init();
+      onGetPostDataList();
     }, []);
 
-    const onGetAllList = async () => {console.log("onGetAllList")
+    const onGetPostDataList = async () => {console.log("onGetPostDataList();")
         try {
-          fetch("https://localhost/getAllList", {
+          fetch("https://localhost/getPostList", {
             method: "GET",
             headers: { 'Content-Type': 'application/json' },
             credentials: "include",
@@ -25,7 +22,7 @@ function Content() {
             }
           })
           .then((data) => {
-              setListData(data);
+            setPostDataList(data);
           })
           .catch((error) => { console.error('Error:', error); })
         } catch (error) {
@@ -34,14 +31,36 @@ function Content() {
         }
     };
 
-    const list = listData.map((item, index) => <li key={index}>{item.content}</li>);
+    const postHtml = postDataList.map((post, index) => (
+      <div key={index} className="post">
+        <div className="post-header">
+          <div className="author-icon">
+            {
+              post.pictureSrc ?
+              <img src={post.pictureSrc} alt="" />
+              :
+              <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
+            }            
+          </div>            
+          <div className="author-details">
+            <span className="author-name">{post.author}</span>
+            <span className="post-time">{post.updated_at}</span>
+          </div>
+        </div>
+        <div className="post-content">
+          {post.content}
+        </div>
+        <div className="post-footer">
+          <button>Like</button>
+          <button>Comment</button>
+        </div>
+      </div>
+    ));
 
     return (
-        <div className='content'>
-            <ol>
-                {list}
-            </ol>                                                
-        </div>
+      <div className='content'>
+        {postHtml}                                               
+      </div>
   );
 }
 
