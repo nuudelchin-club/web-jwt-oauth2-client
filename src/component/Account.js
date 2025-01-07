@@ -48,7 +48,7 @@ function Account() {
               </p>
           </li>                                               
           <li>
-              <img src={userData.picture} alt="" width={40} height={40} />
+              <img src={userData.pictureSrc} alt="" width={40} height={40} />
           </li>                                               
         </ul>        
     </div>

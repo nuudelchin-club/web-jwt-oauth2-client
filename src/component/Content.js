@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Content.css';
 
-function Content({userData}) {
+function Content({refreshAccessToken, userData}) {
 
     const [postDataList, setPostDataList] = useState([]);
 

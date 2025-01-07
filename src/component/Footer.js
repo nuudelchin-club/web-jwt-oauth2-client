@@ -17,7 +17,7 @@ function Footer({userData, setCurrView}) {
       <div className='wrap profile'>
         {
           userData.picture ? 
-          <img src={userData.picture} alt="" width={40} height={40} onClick={() => { setCurrView(1); } }/>
+          <img src={userData.pictureSrc} alt="" width={40} height={40} onClick={() => { setCurrView(1); } }/>
           :
           <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" width={40} height={40} onClick={() => { setCurrView(1); } }/>
         }        
