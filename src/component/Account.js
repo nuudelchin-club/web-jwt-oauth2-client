@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function Account() {
 
   const [userData, setUserData] = useState({});
@@ -10,7 +12,7 @@ function Account() {
 
   const onUserAPI = async () => {console.log("onUserAPI")
     try {
-      fetch("https://localhost/user", {
+      fetch(`${apiUrl}/user`, {
         method: "GET",
         credentials: "include",
       })

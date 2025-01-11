@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function Example({refreshAccessToken, setAuthorized}) {
 
   const [timeData, setTimeData] = useState({});
@@ -10,7 +12,7 @@ function Example({refreshAccessToken, setAuthorized}) {
 
   const onTimeAPI = async () => {console.log("onTimeAPI")
     try {
-      fetch("https://localhost/time", {
+      fetch(`${apiUrl}/time`, {
         method: "GET",
         credentials: "include",
       })

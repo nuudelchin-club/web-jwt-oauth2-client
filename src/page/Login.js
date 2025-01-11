@@ -1,14 +1,16 @@
 import React from 'react';
 import './Login.css';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const onGoogleLogin = () => {
-    window.location.href = "https://localhost/oauth2/authorization/google";
+    window.location.href = `${apiUrl}/oauth2/authorization/google`;
 };
 const onFacebookLogin = () => {
-    window.location.href = "https://localhost/oauth2/authorization/facebook";
+    window.location.href = `${apiUrl}/oauth2/authorization/facebook`;
 };
 const onNaverLogin = () => {
-    window.location.href = "https://localhost/oauth2/authorization/naver";
+    window.location.href = `${apiUrl}/oauth2/authorization/naver`;
 };
 
 function Login() {

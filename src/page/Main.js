@@ -10,6 +10,8 @@ import Contact from '../component/Contact';
 import Example from '../component/Example';
 import Account from '../component/Account';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function Main({setAuthorized, refreshAccessToken}) {
 
   const [userData, setUserData] = useState({});
@@ -38,7 +40,7 @@ function Main({setAuthorized, refreshAccessToken}) {
 
   const onUserAPI = async () => {console.log("onUserAPI")
     try {
-      fetch("https://localhost/user", {
+      fetch(`${apiUrl}/user`, {
         method: "GET",
         credentials: "include",
       })

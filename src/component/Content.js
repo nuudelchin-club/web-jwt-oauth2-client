@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Content.css';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function Content({refreshAccessToken, userData}) {
 
     const [postDataList, setPostDataList] = useState([]);
@@ -11,7 +13,7 @@ function Content({refreshAccessToken, userData}) {
 
     const onGetPostDataList = async () => {console.log("onGetPostDataList();")
         try {
-          fetch("https://localhost/getPostList", {
+          fetch(`${apiUrl}/getPostList`, {
             method: "GET",
             headers: { 'Content-Type': 'application/json' },
             credentials: "include",

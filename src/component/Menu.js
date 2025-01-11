@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Menu.css';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function Menu({setAuthorized, setCurrView}) {
 
     const onLogout = () => {
-        fetch("https://localhost/logout", {
+        fetch(`${apiUrl}/logout`, {
             method: "POST",
             credentials: "include",
         })

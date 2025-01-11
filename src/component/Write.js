@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Write.css';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function Write({userData, refreshAccessToken, setCurrView}) {
 
   const textareaRef = useRef(null);
@@ -11,7 +13,7 @@ function Write({userData, refreshAccessToken, setCurrView}) {
 
   const onUploadAPI = async (input) => {console.log("onUploadAPI", input)
     try {
-      const response = await fetch('https://localhost/upload', {
+      const response = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: input,

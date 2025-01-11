@@ -4,13 +4,15 @@ import Loading from './page/Loading';
 import Login from './page/Login';
 import Main from './page/Main';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function Home() {
   
   const [authorized, setAuthorized] = useState(0);  // 0:loading, 1:authorized, 2:unauthorized  
 
   const refreshAccessToken = async () => {
     try {
-      const response = await fetch('https://localhost/reissue', {
+      const response = await fetch(`${apiUrl}/reissue`, {
         method: 'POST',
         credentials: "include",
       });
