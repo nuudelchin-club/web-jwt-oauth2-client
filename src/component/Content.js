@@ -3,35 +3,7 @@ import './Content.css';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Content({refreshAccessToken, userData}) {
-
-    const [postDataList, setPostDataList] = useState([]);
-
-    useEffect(() => {
-      onGetPostDataList();
-    }, []);
-
-    const onGetPostDataList = async () => {console.log("onGetPostDataList();")
-        try {
-          fetch(`${apiUrl}/getPostList`, {
-            method: "GET",
-            headers: { 'Content-Type': 'application/json' },
-            credentials: "include",
-          })
-          .then((response) => { 
-            if (response.ok) { 
-              return response.json(); 
-            }
-          })
-          .then((data) => {
-            setPostDataList(data);
-          })
-          .catch((error) => { console.error('Error:', error); })
-        } catch (error) {
-          console.error('Error:', error);
-        } finally {
-        }
-    };
+function Content({postDataList}) {
 
     const postHtml = postDataList.map((post, index) => (
       <div key={index} className="post">

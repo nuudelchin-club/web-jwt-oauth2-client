@@ -14,16 +14,38 @@ import Message from '../component/Message';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Main({setAuthorized, refreshAccessToken}) {
+function Main({setAuthorized, refreshAccessToken, userData}) {
 
-  const [userData, setUserData] = useState({});
   const [currView, setCurrView] = useState(0);
+  const [postDataList, setPostDataList] = useState([]);
+
+  const onGetPostDataList = async () => {console.log("onGetPostDataList();")
+    try {
+      fetch(`${apiUrl}/getPostList`, {
+        method: "GET",
+        headers: { 'Content-Type': 'application/json' },
+        credentials: "include",
+      })
+      .then((response) => { 
+        if (response.ok) { 
+          return response.json(); 
+        }
+      })
+      .then((data) => {
+        setPostDataList(data);
+      })
+      .catch((error) => { console.error('Error:', error); })
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+    }
+};
 
   useEffect(() => {
-    onUserAPI();
+    onGetPostDataList();
   }, []);
 
-  useEffect(() => {console.log("refreshAccessToken")
+  useEffect(() => {console.log("Main, useEffect")
     const init = async () => {
       try {
         const isOk = await refreshAccessToken();
@@ -40,33 +62,12 @@ function Main({setAuthorized, refreshAccessToken}) {
     init();
   }, [currView]);
 
-  const onUserAPI = async () => {console.log("onUserAPI")
-    try {
-      fetch(`${apiUrl}/user`, {
-        method: "GET",
-        credentials: "include",
-      })
-      .then((response) => { 
-        if (response.ok) { 
-          return response.json(); 
-        }
-      })
-      .then((data) => { 
-        setUserData(data);
-      })
-      .catch((error) => { console.error('Error:', error); })
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-    }
-  };
-
   return (
     <div className='main_page'>
       <div className='main_panel'>
         {/* <Header /> */}
 
-        {currView === 0 && <Content refreshAccessToken={refreshAccessToken} userData={userData}/>}
+        {currView === 0 && <Content postDataList={postDataList} />}
         {currView === 1 && <Menu setAuthorized={setAuthorized} setCurrView={setCurrView} />}
         {currView === 11 && <About />}
         {currView === 12 && <Contact />}
