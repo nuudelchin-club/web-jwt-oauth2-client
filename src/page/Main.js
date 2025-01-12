@@ -9,6 +9,8 @@ import About from '../component/About';
 import Contact from '../component/Contact';
 import Example from '../component/Example';
 import Account from '../component/Account';
+import Chat from '../component/Chat';
+import Message from '../component/Message';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -71,6 +73,8 @@ function Main({setAuthorized, refreshAccessToken}) {
         {currView === 13 && <Example refreshAccessToken={refreshAccessToken} setAuthorized={setAuthorized} />}
         {currView === 14 && <Account />}
         {currView === 2 && <Write userData={userData} refreshAccessToken={refreshAccessToken} setCurrView={setCurrView} />}
+        {currView === 3 && <Chat />}
+        {currView === 4 && <Message />}
         
         <Footer userData={userData} setCurrView={setCurrView} />
       </div>
