@@ -18,6 +18,7 @@ function Main({setAuthorized, refreshAccessToken, userData}) {
 
   const [currView, setCurrView] = useState(0);
   const [postDataList, setPostDataList] = useState([]);
+  const [messagers, setMessagers] = useState({senderId: null, recipientId: null});
 
   const onGetPostDataList = async () => {console.log("onGetPostDataList();")
     try {
@@ -39,7 +40,19 @@ function Main({setAuthorized, refreshAccessToken, userData}) {
       console.error('Error:', error);
     } finally {
     }
-};
+  };
+
+  const onMessage = (recipientId) => {
+    const senderId = userData.username;
+    if(senderId && recipientId) {
+      setMessagers((prev) => ({ 
+        ...prev,
+        senderId: senderId,
+        recipientId: recipientId
+      }));
+      setCurrView(4);
+    }
+  };
 
   useEffect(() => {
     onGetPostDataList();
@@ -67,7 +80,7 @@ function Main({setAuthorized, refreshAccessToken, userData}) {
       <div className='main_panel'>
         {/* <Header /> */}
 
-        {currView === 0 && <Content postDataList={postDataList} />}
+        {currView === 0 && <Content postDataList={postDataList} onMessage={onMessage} userData={userData} />}
         {currView === 1 && <Menu setAuthorized={setAuthorized} setCurrView={setCurrView} />}
         {currView === 11 && <About />}
         {currView === 12 && <Contact />}
@@ -75,7 +88,7 @@ function Main({setAuthorized, refreshAccessToken, userData}) {
         {currView === 14 && <Account />}
         {currView === 2 && <Write userData={userData} refreshAccessToken={refreshAccessToken} setCurrView={setCurrView} />}
         {currView === 3 && <Chat />}
-        {currView === 4 && <Message />}
+        {currView === 4 && <Message messagers={messagers} />}
         
         <Footer userData={userData} setCurrView={setCurrView} />
       </div>

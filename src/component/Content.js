@@ -3,10 +3,10 @@ import './Content.css';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Content({postDataList}) {
+function Content({postDataList, onMessage, userData}) {
 
     const postHtml = postDataList.map((post, index) => (
-      <div key={index} className="post">
+      <div key={index} className="post" data-author-id={post.author_id}>
         <div className="post-header">
           <div className="author-icon">
             {
@@ -26,7 +26,9 @@ function Content({postDataList}) {
         </div>
         <div className="post-footer">
           <button>Like</button>
-          <button>Comment</button>
+          {userData.username !== post.author_id && (
+            <button onClick={() => onMessage(post.author_id)}>Chat</button>
+          )}         
         </div>
       </div>
     ));

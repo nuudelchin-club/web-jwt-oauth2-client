@@ -3,11 +3,12 @@ import './Message.css';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Message({}) {
+function Message({messagers}) {
 
   return (
     <div className='content'>
-      <div>Message</div>
+      <div>{messagers.senderId}</div>
+      <div>{messagers.recipientId}</div>
     </div>
   );
 }
