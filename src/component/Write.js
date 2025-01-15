@@ -56,8 +56,8 @@ function Write({userData, refreshAccessToken, setCurrView}) {
         <div className="write-header">
           <div className="author-icon">
             {
-              userData.pictureSrc ?
-              <img src={userData.pictureSrc} alt="" />
+              userData.picture ?
+              <img src={userData.picture} alt="" />
               :
               <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
             }            

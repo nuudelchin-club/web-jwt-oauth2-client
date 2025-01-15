@@ -8,7 +8,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 function Message({messagers}) {
 
-  const [recipientUserData, setRecipientUserData] = useState({});
+  const [recipient, setRecipient] = useState({});
   const stompClient = useRef(null);
   const inputRef = useRef(null);
   const [messageList, setMessageList] = useState([]);
@@ -47,7 +47,7 @@ function Message({messagers}) {
       return response.json(); 
     })
     .then((data) => { 
-      setRecipientUserData(data);
+      setRecipient(data);
     })
     .catch((error) => { console.error('Error:', error); })
   };
@@ -114,7 +114,22 @@ function Message({messagers}) {
 
   const messageHtml = messageList.map((message, index) => (
     <div key={index} className="message">
-      {message.senderId} : {message.content}
+      <div className="message-header">
+        <div className="user-icon">
+          {
+            message.picture ?
+            <img src={message.picture} alt="" />
+            :
+            <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
+          }            
+        </div>            
+        {/* <div className="user-details">
+          <span className="user-name">{message.fullname}</span>
+        </div> */}
+        <div>
+          :   <span className="">{message.content}</span>
+        </div>        
+      </div>
     </div>
   ));
 
@@ -124,14 +139,14 @@ function Message({messagers}) {
         <div className="message-header">
           <div className="user-icon">
             {
-              recipientUserData.pictureSrc ?
-              <img src={recipientUserData.pictureSrc} alt="" />
+              recipient.picture ?
+              <img src={recipient.picture} alt="" />
               :
               <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
             }            
           </div>            
           <div className="user-details">
-            <span className="user-name">{recipientUserData.fullname}</span>
+            <span className="user-name">{recipient.fullname}</span>
           </div>
         </div>
         <div className="message-content" id="messageContainer">

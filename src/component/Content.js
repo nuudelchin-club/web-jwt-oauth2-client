@@ -10,8 +10,8 @@ function Content({postDataList, onMessage, userData}) {
         <div className="post-header">
           <div className="author-icon">
             {
-              post.pictureSrc ?
-              <img src={post.pictureSrc} alt="" />
+              post.picture ?
+              <img src={post.picture} alt="" />
               :
               <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
             }            
