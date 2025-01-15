@@ -7,28 +7,24 @@ function Account() {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    onUserAPI();
+    getUser();
   }, []);
 
-  const onUserAPI = async () => {console.log("onUserAPI")
-    try {
-      fetch(`${apiUrl}/user`, {
-        method: "GET",
-        credentials: "include",
-      })
-      .then((response) => { 
-        if (response.ok) { 
-          return response.json(); 
-        }
-      })
-      .then((data) => { 
-        setUserData(data);
-      })
-      .catch((error) => { console.error('Error:', error); })
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-    }
+  const getUser = async () => {console.log("getUser")
+    fetch(`${apiUrl}/user/getLoggedIn`, {
+      method: "GET",
+      credentials: "include",
+    })
+    .then((response) => { 
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      return response.json(); 
+    })
+    .then((data) => { 
+      setUserData(data);
+    })
+    .catch((error) => { console.error('Error:', error); })
   };
 
   return (

@@ -11,30 +11,32 @@ function Write({userData, refreshAccessToken, setCurrView}) {
     textareaRef.current.focus();
   }, []);
 
-  const onUploadAPI = async (input) => {console.log("onUploadAPI", input)
-    try {
-      const response = await fetch(`${apiUrl}/upload`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: input,
-        credentials: "include",
-      });
-      
-      if (response.ok) {
-        const responseData = await response.text();
-        alert(responseData);
+  const save = async (input) => {console.log("save")
+    fetch(`${apiUrl}/post/save`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: input,
+      credentials: "include",
+    })
+    .then((response) => { 
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      return response.text(); 
+    })
+    .then((data) => { 
+      if(data === "OK") {
+        alert("Нийтлэл хадгалагдлаа.")
         setCurrView(0);
       }
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-    }
+    })
+    .catch((error) => { console.error('Error:', error); })
   };
 
   const onUpload = async (input) => {
     const isOk = await refreshAccessToken();
     if(isOk) {
-      onUploadAPI(input);
+      save(input);
     }
   }
 

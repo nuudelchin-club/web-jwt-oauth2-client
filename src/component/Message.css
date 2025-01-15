@@ -1,0 +1,53 @@
+.content .message {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #fff;
+}
+
+.content .message-header {
+    display: flex;
+    align-items: center;    
+}
+
+.content .message-header .user-icon {
+    width: 40px;
+    height: 40px;    
+}
+
+.content .message-header .user-icon img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.content .message-header .user-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.content .message-header .user-name {
+    font-weight: bold;
+}
+
+.content .message-content {
+    font-size: 1em;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.content .message-content input{
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+    overflow: hidden;
+    line-height: 1.5em; 
+}
+
+.content .message-footer {
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect, useState, useRef } from 'react';
 import Loading from './page/Loading';
 import Login from './page/Login';
 import Main from './page/Main';
@@ -23,25 +22,21 @@ function Home() {
     }
   };
 
-  const onUserAPI = async () => {console.log("onUserAPI")
-    try {
-      fetch(`${apiUrl}/user`, {
-        method: "GET",
-        credentials: "include",
-      })
-      .then((response) => { 
-        if (response.ok) { 
-          return response.json(); 
-        }
-      })
-      .then((data) => { 
-        setUserData(data);
-      })
-      .catch((error) => { console.error('Error:', error); })
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-    }
+  const getUser = async () => {console.log("getUser")
+    fetch(`${apiUrl}/user/getLoggedIn`, {
+      method: "GET",
+      credentials: "include",
+    })
+    .then((response) => { 
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      return response.json(); 
+    })
+    .then((data) => { 
+      setUserData(data);
+    })
+    .catch((error) => { console.error('Error:', error); })
   };
 
   useEffect(() => {
@@ -50,7 +45,7 @@ function Home() {
         const isOk = await refreshAccessToken();
         if(isOk) {
           setAuthorized(1);
-          onUserAPI();
+          getUser();
         } else {
           setAuthorized(2);
         } 
@@ -59,7 +54,7 @@ function Home() {
       } finally {
       }
     };
-    init();
+    init();    
   }, []);
 
   if(authorized === 1) {

@@ -21,25 +21,21 @@ function Main({setAuthorized, refreshAccessToken, userData}) {
   const [messagers, setMessagers] = useState({senderId: null, recipientId: null});
 
   const onGetPostDataList = async () => {console.log("onGetPostDataList();")
-    try {
-      fetch(`${apiUrl}/getPostList`, {
-        method: "GET",
-        headers: { 'Content-Type': 'application/json' },
-        credentials: "include",
-      })
-      .then((response) => { 
-        if (response.ok) { 
-          return response.json(); 
-        }
-      })
-      .then((data) => {
-        setPostDataList(data);
-      })
-      .catch((error) => { console.error('Error:', error); })
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-    }
+    fetch(`${apiUrl}/post/get`, {
+      method: "GET",
+      headers: { 'Content-Type': 'application/json' },
+      credentials: "include",
+    })
+    .then((response) => { 
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      return response.json(); 
+    })
+    .then((data) => {
+      setPostDataList(data);
+    })
+    .catch((error) => { console.error('Error:', error); })
   };
 
   const onMessage = (recipientId) => {

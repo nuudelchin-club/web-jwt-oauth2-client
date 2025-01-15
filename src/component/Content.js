@@ -6,7 +6,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 function Content({postDataList, onMessage, userData}) {
 
     const postHtml = postDataList.map((post, index) => (
-      <div key={index} className="post" data-author-id={post.author_id}>
+      <div key={index} className="post" data-author-id={post.username}>
         <div className="post-header">
           <div className="author-icon">
             {
@@ -17,8 +17,8 @@ function Content({postDataList, onMessage, userData}) {
             }            
           </div>            
           <div className="author-details">
-            <span className="author-name">{post.author}</span>
-            <span className="post-time">{post.updated_at}</span>
+            <span className="author-name">{post.fullname}</span>
+            <span className="post-time">{post.updatedAt}</span>
           </div>
         </div>
         <div className="post-content">
@@ -26,8 +26,8 @@ function Content({postDataList, onMessage, userData}) {
         </div>
         <div className="post-footer">
           <button>Like</button>
-          {userData.username !== post.author_id && (
-            <button onClick={() => onMessage(post.author_id)}>Chat</button>
+          {userData.username !== post.username && (
+            <button onClick={() => onMessage(post.username)}>Chat</button>
           )}         
         </div>
       </div>
