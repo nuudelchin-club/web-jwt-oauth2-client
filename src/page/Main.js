@@ -83,7 +83,7 @@ function Main({setAuthorized, refreshAccessToken, userData}) {
         {currView === 13 && <Example refreshAccessToken={refreshAccessToken} setAuthorized={setAuthorized} />}
         {currView === 14 && <Account />}
         {currView === 2 && <Write userData={userData} refreshAccessToken={refreshAccessToken} setCurrView={setCurrView} />}
-        {currView === 3 && <Chat />}
+        {currView === 3 && <Chat onMessage={onMessage} userData={userData} />}
         {currView === 4 && <Message messagers={messagers} />}
         
         <Footer userData={userData} setCurrView={setCurrView} />

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './Footer.css';
 
 function Footer({userData, setCurrView}) {
-  console.log(userData)
   return (
     <div className='main-footer'>
       <div className='wrap logo'>
