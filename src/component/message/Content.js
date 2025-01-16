@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useRef } from 'react';
 import './Content.css';
 
 function Content({userData, messageList}) {
-  console.log("userData", userData)
-  console.log("messageList", messageList)
+
+  const messageContentRef = useRef(null);
+
+  useEffect(() => {
+    if (messageContentRef.current) {
+      messageContentRef.current.scrollTop = messageContentRef.current.scrollHeight;
+    }
+  }, [messageList]);
+
   const html = messageList.map((message, index) => (
     <div key={index} className="">
       {
@@ -33,7 +40,7 @@ function Content({userData, messageList}) {
   ));
 
   return (
-    <div className='message-content'>
+    <div className='message-content' ref={messageContentRef} >
       {html}
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Footer.css';
 
-function Footer({}) {
+function Footer({sendMessage}) {
   
   const inputRef = useRef(null);
 
@@ -10,7 +10,8 @@ function Footer({}) {
 
     const value = inputRef.current.value;
     if (value.trim()) {
-      
+      sendMessage(value);
+      inputRef.current.value = "";
     } 
   };
 

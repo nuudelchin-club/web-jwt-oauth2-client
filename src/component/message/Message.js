@@ -11,9 +11,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 function Message({messagers}) {
 
-  const [recipient, setRecipient] = useState({});
   const stompClient = useRef(null);
-  const inputRef = useRef(null);
+  const [userData, setUserData] = useState({});  
   const [messageList, setMessageList] = useState([]);
 
   useEffect(() => {
@@ -50,7 +49,7 @@ function Message({messagers}) {
       return response.json(); 
     })
     .then((data) => { 
-      setRecipient(data);console.log(data)
+      setUserData(data);
     })
     .catch((error) => { console.error('Error:', error); })
   };
@@ -72,7 +71,7 @@ function Message({messagers}) {
       }
       return response.json(); 
     })
-    .then((data) => {console.log(data)
+    .then((data) => {
       setMessageList([...messageList, ...data]);
     })
     .catch((error) => { console.error('Error:', error); })
@@ -93,21 +92,11 @@ function Message({messagers}) {
     stompClient.current.activate();
   };
 
-  const handleSend = (e) => {
-    e.preventDefault();
-
-    const value = inputRef.current.value;
-    if (value.trim()) {
-      sendMessage(messagers.senderId, messagers.recipientId, value)
-      inputRef.current.value = ""; 
-    } 
-  };
-
-  const sendMessage = (senderId, recipientId, content) => {
+  const sendMessage = (content) => {
     if (stompClient) {
       const payload = {
-        senderId: senderId,
-        recipientId: recipientId,
+        senderId: messagers.senderId,
+        recipientId: messagers.recipientId,
         content: content,
       };
       stompClient.current.send("/app/send", {}, JSON.stringify(payload));
@@ -115,70 +104,15 @@ function Message({messagers}) {
     }  
   };
 
-  const messageHtml = messageList.map((message, index) => (
-    <div key={index} className="message">
-      <div className="message-header">
-        {
-          message.senderId == recipient.username 
-          &&
-          <div className="user-icon">
-            {
-              recipient.picture ?
-              <img src={recipient.picture} alt="" />
-              :
-              <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
-            }            
-          </div>
-        }        
-        <div>
-          <span className="">{message.content}</span>
-        </div>        
-      </div>
-    </div>
-  ));
-
   return (
     <div className='main-content'>
       <div className='message-panel'>
-        <Header userData={recipient} />
-        {
-          (recipient && messageList) 
-          && 
-          <Content userData={recipient} messageList={messageList} />
-        }        
-        <Footer />
+        <Header userData={userData} />
+        <Content userData={userData} messageList={messageList} />       
+        <Footer sendMessage={sendMessage} />
       </div>
     </div>
   );
-
-  // return (
-  //   <div className='main-content'>
-  //     <div className="message">
-  //       <div className="message-header">
-  //         <div className="user-icon">
-  //           {
-  //             recipient.picture ?
-  //             <img src={recipient.picture} alt="" />
-  //             :
-  //             <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
-  //           }            
-  //         </div>            
-  //         <div className="user-details">
-  //           <span className="user-name">{recipient.fullname}</span>
-  //         </div>
-  //       </div>
-  //       <div className="message-content" id="messageContainer">
-  //         {messageHtml}
-  //       </div>
-  //       <div className="message-footer">
-  //         <input type="text" ref={inputRef} placeholder="Type your message..."/>
-  //         <button onClick={(event) => { handleSend(event); } }>
-  //           Send
-  //         </button>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 }
 
 export default Message;
