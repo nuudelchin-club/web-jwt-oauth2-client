@@ -47,7 +47,7 @@ function Message({messagers}) {
       return response.json(); 
     })
     .then((data) => { 
-      setRecipient(data);
+      setRecipient(data);console.log(data)
     })
     .catch((error) => { console.error('Error:', error); })
   };
@@ -69,7 +69,7 @@ function Message({messagers}) {
       }
       return response.json(); 
     })
-    .then((data) => {
+    .then((data) => {console.log(data)
       setMessageList([...messageList, ...data]);
     })
     .catch((error) => { console.error('Error:', error); })
@@ -115,19 +115,20 @@ function Message({messagers}) {
   const messageHtml = messageList.map((message, index) => (
     <div key={index} className="message">
       <div className="message-header">
-        <div className="user-icon">
-          {
-            message.picture ?
-            <img src={message.picture} alt="" />
-            :
-            <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
-          }            
-        </div>            
-        {/* <div className="user-details">
-          <span className="user-name">{message.fullname}</span>
-        </div> */}
+        {
+          message.senderId == recipient.username 
+          &&
+          <div className="user-icon">
+            {
+              recipient.picture ?
+              <img src={recipient.picture} alt="" />
+              :
+              <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
+            }            
+          </div>
+        }        
         <div>
-          :   <span className="">{message.content}</span>
+          <span className="">{message.content}</span>
         </div>        
       </div>
     </div>
