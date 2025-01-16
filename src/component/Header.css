@@ -1,19 +1,19 @@
-.header {
+.main-header {
     
     width: 100%;
     display: flex;
 }
 
-.header div {
+.main-header div {
     flex: 1;        
 }
 
-.header .wrap {
+.main-header .wrap {
     display: flex;
     padding: 5px;
     justify-content: center;
 }
 
-.header .wrap img{
+.main-header .wrap img {
     cursor: pointer;
 }

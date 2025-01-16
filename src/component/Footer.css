@@ -1,23 +1,23 @@
-.footer {
+.main-footer {
     
     width: 100%;
     display: flex;
 }
 
-.footer div {
+.main-footer div {
     flex: 1;        
 }
 
-.footer .wrap {
+.main-footer .wrap {
     display: flex;    
     padding: 5px;
     justify-content: center;
 }
 
-.footer .wrap img{
+.main-footer .wrap img {
     cursor: pointer;
 }
 
-.footer .profile img{
+.main-footer .profile img {
     border-radius: 50%;
 }

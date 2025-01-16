@@ -51,7 +51,7 @@ function Write({userData, refreshAccessToken, setCurrView}) {
   };
 
   return (
-    <div className='content'>
+    <div className='main-content'>
       <div className="write">
         <div className="write-header">
           <div className="author-icon">

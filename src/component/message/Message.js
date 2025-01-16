@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Message.css';
+import Header from './Header';
+import Content from './Content';
+import Footer from './Footer';
 
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
@@ -135,33 +138,47 @@ function Message({messagers}) {
   ));
 
   return (
-    <div className='content'>
-      <div className="message">
-        <div className="message-header">
-          <div className="user-icon">
-            {
-              recipient.picture ?
-              <img src={recipient.picture} alt="" />
-              :
-              <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
-            }            
-          </div>            
-          <div className="user-details">
-            <span className="user-name">{recipient.fullname}</span>
-          </div>
-        </div>
-        <div className="message-content" id="messageContainer">
-          {messageHtml}
-        </div>
-        <div className="message-footer">
-          <input type="text" ref={inputRef} placeholder="Type your message..."/>
-          <button onClick={(event) => { handleSend(event); } }>
-            Send
-          </button>
-        </div>
+    <div className='main-content'>
+      <div className='message-panel'>
+        <Header userData={recipient} />
+        {
+          (recipient && messageList) 
+          && 
+          <Content userData={recipient} messageList={messageList} />
+        }        
+        <Footer />
       </div>
     </div>
   );
+
+  // return (
+  //   <div className='main-content'>
+  //     <div className="message">
+  //       <div className="message-header">
+  //         <div className="user-icon">
+  //           {
+  //             recipient.picture ?
+  //             <img src={recipient.picture} alt="" />
+  //             :
+  //             <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
+  //           }            
+  //         </div>            
+  //         <div className="user-details">
+  //           <span className="user-name">{recipient.fullname}</span>
+  //         </div>
+  //       </div>
+  //       <div className="message-content" id="messageContainer">
+  //         {messageHtml}
+  //       </div>
+  //       <div className="message-footer">
+  //         <input type="text" ref={inputRef} placeholder="Type your message..."/>
+  //         <button onClick={(event) => { handleSend(event); } }>
+  //           Send
+  //         </button>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 }
 
 export default Message;

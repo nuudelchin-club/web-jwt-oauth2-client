@@ -28,7 +28,7 @@ function Account() {
   };
 
   return (
-    <div className='content'>
+    <div className='main-content'>
         <ul>
           <li>
               <p>

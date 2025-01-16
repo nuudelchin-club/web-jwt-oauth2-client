@@ -1,38 +1,31 @@
-.main-page {
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-}
-
-.main-panel {    
-    width: 640px;
+.message-panel {    
+    width: 100%;
     height: 100%;
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
 }
 
-.main-header, .main-footer {
+.message-header, .message-footer {
     background-color: #fff;    
     width: 100%;
     height: 50px;
-    line-height: 50px;
     flex-shrink: 0;
     position: sticky;
     z-index: 99;
 }
 
-.main-header {
+.message-header {
     top: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.main-footer {
+.message-footer {
     bottom: 0;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.main-content {
+.message-content {
     background-color: #f2f4f7;
     flex-grow: 1;
     overflow-y: auto;

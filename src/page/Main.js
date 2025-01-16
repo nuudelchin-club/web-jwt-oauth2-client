@@ -10,7 +10,7 @@ import Contact from '../component/Contact';
 import Example from '../component/Example';
 import Account from '../component/Account';
 import Chat from '../component/Chat';
-import Message from '../component/Message';
+import Message from '../component/message/Message';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -72,9 +72,9 @@ function Main({setAuthorized, refreshAccessToken, userData}) {
   }, [currView]);
 
   return (
-    <div className='main_page'>
-      <div className='main_panel'>
-        {/* <Header /> */}
+    <div className='main-page'>
+      <div className='main-panel'>
+        <Header />
 
         {currView === 0 && <Content postDataList={postDataList} onMessage={onMessage} userData={userData} />}
         {currView === 1 && <Menu setAuthorized={setAuthorized} setCurrView={setCurrView} />}

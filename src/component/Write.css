@@ -1,4 +1,4 @@
-.content .write {
+.main-content .write {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 10px;
@@ -6,40 +6,40 @@
     background: #fff;
 }
 
-.content .write-header {
+.main-content .write-header {
     display: flex;
     align-items: center;    
 }
 
-.content .write-header .author-icon {
+.main-content .write-header .author-icon {
     width: 40px;
     height: 40px;    
 }
 
-.content .write-header .author-icon img{
+.main-content .write-header .author-icon img{
     width: 100%;
     height: 100%;
     border-radius: 50%;
 }
 
-.content .write-header .author-details {
+.main-content .write-header .author-details {
     display: flex;
     flex-direction: column;
     margin-left: 10px;
 }
 
-.content .write-header .author-name {
+.main-content .write-header .author-name {
     font-weight: bold;
 }
 
-.content .write-content {
+.main-content .write-content {
     font-size: 1em;
     color: #333;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.content .write-content textarea{
+.main-content .write-content textarea{
     width: 100%;
     box-sizing: border-box;
     resize: none;
@@ -47,7 +47,7 @@
     line-height: 1.5em; 
 }
 
-.content .write-footer {
+.main-content .write-footer {
     display: flex;
     justify-content: space-between;
 }

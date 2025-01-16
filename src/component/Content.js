@@ -34,7 +34,7 @@ function Content({postDataList, onMessage, userData}) {
     ));
 
     return (
-      <div className='content'>
+      <div className='main-content'>
         {postHtml}                                               
       </div>
   );

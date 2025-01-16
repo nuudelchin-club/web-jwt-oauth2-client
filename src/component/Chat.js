@@ -6,7 +6,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 function Chat({}) {
 
   return (
-    <div className='content'>
+    <div className='main-content'>
       <div>Chat</div>
     </div>
   );

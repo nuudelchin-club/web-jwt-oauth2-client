@@ -41,7 +41,7 @@ function Example({refreshAccessToken, setAuthorized}) {
   }
 
   return (
-    <div className='content'>
+    <div className='main-content'>
         <ul>
           <li>
               <button onClick={() => { onTime(); } }>
