@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Write.css';
+import { authenticate } from '../util/Token';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Write({userData, refreshAccessToken, setCurrView}) {
+function Write({userData, setCurrView}) {
 
   const textareaRef = useRef(null);
 
@@ -33,12 +34,12 @@ function Write({userData, refreshAccessToken, setCurrView}) {
     .catch((error) => { console.error('Error:', error); })
   };
 
-  const onUpload = async (input) => {
-    const isOk = await refreshAccessToken();
-    if(isOk) {
-      save(input);
+    const onUpload = async (input) => {
+        const isAuthenticated = await authenticate();
+        if(isAuthenticated) {
+            save(input);
+        }
     }
-  }
 
   const handleUpload = async (e) => {
     e.preventDefault();

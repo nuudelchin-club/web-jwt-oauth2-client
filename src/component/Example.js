@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { authenticate } from '../util/Token';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Example({refreshAccessToken, setAuthorized}) {
+function Example({setAuthorized}) {
 
   const [timeData, setTimeData] = useState({});
 
@@ -31,14 +32,14 @@ function Example({refreshAccessToken, setAuthorized}) {
     }
   };
 
-  const onTime = async () => {
-    const isOk = await refreshAccessToken();
-    if(isOk) {
-      onTimeAPI();
-    } else {
-      setAuthorized(2);
+    const onTime = async () => {
+        const isAuthenticated = await authenticate();
+        if(isAuthenticated) {
+            onTimeAPI();
+        } else {
+            setAuthorized(2);
+        }
     }
-  }
 
   return (
     <div className='main-content'>

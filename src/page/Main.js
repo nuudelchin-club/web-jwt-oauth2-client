@@ -11,10 +11,11 @@ import Example from '../component/Example';
 import Account from '../component/Account';
 import Chat from '../component/Chat';
 import Message from '../component/message/Message';
+import { authenticate } from '../util/Token';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Main({setAuthorized, refreshAccessToken, userData}) {
+function Main({setAuthorized, userData}) {
 
   const [currView, setCurrView] = useState(0);
   const [postDataList, setPostDataList] = useState([]);
@@ -54,22 +55,15 @@ function Main({setAuthorized, refreshAccessToken, userData}) {
     onGetPostDataList();
   }, []);
 
-  useEffect(() => {console.log("Main, useEffect")
-    const init = async () => {
-      try {
-        const isOk = await refreshAccessToken();
-        if(isOk) {
-          
-        } else {
-          setAuthorized(2);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-      }
-    };
-    init();
-  }, [currView]);
+    useEffect(() => {
+        (async () => {
+            const isAuthenticated = await authenticate();
+            if(isAuthenticated) {
+            } else {
+                setAuthorized(2);
+            }
+        })();
+    }, [currView]);
 
   return (
     <div className='main-page'>
@@ -80,9 +74,9 @@ function Main({setAuthorized, refreshAccessToken, userData}) {
         {currView === 1 && <Menu setAuthorized={setAuthorized} setCurrView={setCurrView} />}
         {currView === 11 && <About />}
         {currView === 12 && <Contact />}
-        {currView === 13 && <Example refreshAccessToken={refreshAccessToken} setAuthorized={setAuthorized} />}
+        {currView === 13 && <Example setAuthorized={setAuthorized} />}
         {currView === 14 && <Account />}
-        {currView === 2 && <Write userData={userData} refreshAccessToken={refreshAccessToken} setCurrView={setCurrView} />}
+        {currView === 2 && <Write userData={userData} setCurrView={setCurrView} />}
         {currView === 3 && <Chat onMessage={onMessage} userData={userData} />}
         {currView === 4 && <Message messagers={messagers} />}
         
