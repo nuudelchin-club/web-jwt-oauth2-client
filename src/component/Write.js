@@ -1,16 +1,19 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import './Write.css';
+import { useEffect, useContext, useRef } from 'react';
 import { authenticate } from '../util/Token';
+import { UserContext } from '../util/Context';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Write({userData, setCurrView}) {
+function Write({setCurrView}) {
 
-  const textareaRef = useRef(null);
+    const userData = useContext(UserContext);
+    const textareaRef = useRef(null);
 
-  useEffect(() => {
-    textareaRef.current.focus();
-  }, []);
+    useEffect(() => {
+        textareaRef.current.focus();
+    }, []);
 
   const save = async (input) => {console.log("save")
     fetch(`${apiUrl}/post/save`, {

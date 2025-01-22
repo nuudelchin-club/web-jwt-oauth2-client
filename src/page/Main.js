@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './Main.css';
+import { useEffect, useState, useContext } from 'react';
 import Content from '../component/Content';
 import Menu from '../component/Menu';
 import Header from '../component/Header';
@@ -12,14 +13,16 @@ import Account from '../component/Account';
 import Chat from '../component/Chat';
 import Message from '../component/message/Message';
 import { authenticate } from '../util/Token';
+import { UserContext } from '../util/Context';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Main({setAuthorized, userData}) {
+function Main({setAuthorized}) {
 
-  const [currView, setCurrView] = useState(0);
-  const [postDataList, setPostDataList] = useState([]);
-  const [messagers, setMessagers] = useState({senderId: null, recipientId: null});
+    const userData = useContext(UserContext);
+    const [currView, setCurrView] = useState(0);
+    const [postDataList, setPostDataList] = useState([]);
+    const [messagers, setMessagers] = useState({senderId: null, recipientId: null});
 
   const onGetPostDataList = async () => {console.log("onGetPostDataList();")
     fetch(`${apiUrl}/post/get`, {
@@ -70,17 +73,17 @@ function Main({setAuthorized, userData}) {
       <div className='main-panel'>
         <Header />
 
-        {currView === 0 && <Content postDataList={postDataList} onMessage={onMessage} userData={userData} />}
+        {currView === 0 && <Content postDataList={postDataList} onMessage={onMessage} />}
         {currView === 1 && <Menu setAuthorized={setAuthorized} setCurrView={setCurrView} />}
         {currView === 11 && <About />}
         {currView === 12 && <Contact />}
         {currView === 13 && <Example setAuthorized={setAuthorized} />}
         {currView === 14 && <Account />}
-        {currView === 2 && <Write userData={userData} setCurrView={setCurrView} />}
-        {currView === 3 && <Chat onMessage={onMessage} userData={userData} />}
+        {currView === 2 && <Write setCurrView={setCurrView} />}
+        {currView === 3 && <Chat onMessage={onMessage} />}
         {currView === 4 && <Message messagers={messagers} />}
         
-        <Footer userData={userData} setCurrView={setCurrView} />
+        <Footer setCurrView={setCurrView} />
       </div>
     </div>
   );

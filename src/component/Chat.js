@@ -1,15 +1,18 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import './Chat.css';
+import { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../util/Context';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Chat({onMessage, userData}) {
+function Chat({onMessage}) {
+    
+    const userData = useContext(UserContext);
+    const [chatList, setChatList] = useState([]);
 
-  const [chatList, setChatList] = useState([]);
-
-  useEffect(() => {
-    getChatList(userData.username);  
-  }, []);
+    useEffect(() => {
+        getChatList(userData.username);  
+    }, []);
 
   const getChatList = async (senderId) => {console.log("getChatList();")
     fetch(`${apiUrl}/chat/get`, {

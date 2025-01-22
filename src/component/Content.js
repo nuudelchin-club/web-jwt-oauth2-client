@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './Content.css';
+import { useContext } from 'react';
+import { UserContext } from '../util/Context';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Content({postDataList, onMessage, userData}) {
+function Content({postDataList, onMessage}) {
+    
+    const userData = useContext(UserContext);
 
     const postHtml = postDataList.map((post, index) => (
       <div key={index} className="post" data-author-id={post.username}>

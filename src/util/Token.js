@@ -12,3 +12,20 @@ export const authenticate = async () => {console.log("authenticate")
       return false;
     }
 };
+
+export const getCurrUserInfo = async () => {console.log("getCurrUserInfo")
+    try {
+        const response = await fetch(`${apiUrl}/user/getLoggedIn`, {
+            method: 'GET',
+            credentials: "include",
+        });
+        if(response.ok) {
+            return await response.json();
+        } else {
+            return null;
+        }
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+};
