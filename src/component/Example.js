@@ -1,43 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { authenticate } from '../util/Token';
+import { PageContext } from '../util/Context';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Example({setAuthorized}) {
+function Example({}) {
 
-  const [timeData, setTimeData] = useState({});
+    const setPage = useContext(PageContext);
+    const [timeData, setTimeData] = useState({});
 
-  useEffect(() => {
-    onTimeAPI();
-  }, []);
+    useEffect(() => {
+        onTimeAPI();
+    }, []);
 
-  const onTimeAPI = async () => {console.log("onTimeAPI")
-    try {
-      fetch(`${apiUrl}/time`, {
-        method: "GET",
-        credentials: "include",
-      })
-      .then((response) => { 
-        if (response.ok) { 
-          return response.json(); 
+    const onTimeAPI = async () => {console.log("onTimeAPI")
+        try {
+            fetch(`${apiUrl}/time`, {
+                method: "GET",
+                credentials: "include",
+            })
+            .then((response) => { 
+                if (response.ok) { 
+                return response.json(); 
+                }
+            })
+            .then((data) => {
+                setTimeData(data);
+            })
+            .catch((error) => { console.error('Error:', error); })
+        } catch (error) {
+            console.error('Error:', error);
+            } finally {
         }
-      })
-      .then((data) => {
-        setTimeData(data);
-      })
-      .catch((error) => { console.error('Error:', error); })
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-    }
-  };
+    };
 
     const onTime = async () => {
         const isAuthenticated = await authenticate();
         if(isAuthenticated) {
             onTimeAPI();
         } else {
-            setAuthorized(2);
+            setPage(2);
         }
     }
 

@@ -3,39 +3,49 @@ import Loading from './page/Loading';
 import Login from './page/Login';
 import Main from './page/Main';
 import { useEffect, useState } from 'react';
-import { authenticate, getCurrUserInfo } from './util/Token';
+import { authenticate, getUserData } from './util/Token';
 import { UserContext } from './util/Context';
-
-const apiUrl = process.env.REACT_APP_API_URL;
+import { PageContext } from './util/Context';
 
 function Home() {
-  
-    const [authorized, setAuthorized] = useState(0);  // 0:loading, 1:authorized, 2:unauthorized  
+
+    // 0 : loading page
+    // 1 : main page
+    // 2 : login page
+    const [page, setPage] = useState(0);  
     const [userData, setUserData] = useState({});
 
     useEffect(() => {
         (async () => {
             const isAuthenticated = await authenticate();
             if(isAuthenticated) {           
-                const userData = await getCurrUserInfo();
+                const userData = await getUserData();
                 setUserData(userData);
-                setAuthorized(1);
+                setPage(1);
             } else {
-                setAuthorized(2);
+                setPage(2);
             }
         })();
     }, []);
 
-    if(authorized === 1) {
+    if(page === 1) {
+        
         return (
             <UserContext.Provider value={userData}>
-                <Main setAuthorized={setAuthorized} />
+                <PageContext.Provider value={{setPage}}>
+                    <Main />
+                </PageContext.Provider>
             </UserContext.Provider>
         );
-    } else if(authorized === 2) {
+
+    } else if(page === 2) {
+
         return (<Login/>);
+
     } else {    
+        
         return (<Loading/>);
+
     }
 }
 

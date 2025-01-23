@@ -1,10 +1,10 @@
 import React from 'react';
 import './Main.css';
 import { useEffect, useState, useContext } from 'react';
-import Content from '../component/Content';
+import Content from '../component/main/Content';
 import Menu from '../component/Menu';
-import Header from '../component/Header';
-import Footer from '../component/Footer';
+import Header from '../component/main/Header';
+import Footer from '../component/main/Footer';
 import Write from '../component/Write';
 import About from '../component/About';
 import Contact from '../component/Contact';
@@ -14,79 +14,64 @@ import Chat from '../component/Chat';
 import Message from '../component/message/Message';
 import { authenticate } from '../util/Token';
 import { UserContext } from '../util/Context';
+import { PageContext } from '../util/Context';
+import { ViewContext } from '../util/Context';
+import { View } from '../util/Const';
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
-function Main({setAuthorized}) {
+function Main({}) {
 
     const userData = useContext(UserContext);
-    const [currView, setCurrView] = useState(0);
-    const [postDataList, setPostDataList] = useState([]);
-    const [messagers, setMessagers] = useState({senderId: null, recipientId: null});
+    const setPage = useContext(PageContext);
 
-  const onGetPostDataList = async () => {console.log("onGetPostDataList();")
-    fetch(`${apiUrl}/post/get`, {
-      method: "GET",
-      headers: { 'Content-Type': 'application/json' },
-      credentials: "include",
-    })
-    .then((response) => { 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-      return response.json(); 
-    })
-    .then((data) => {
-      setPostDataList(data);
-    })
-    .catch((error) => { console.error('Error:', error); })
-  };
+    // 0 : content post view
+    // 1 : menu view
+    // 11 : menu about view
+    // 12 : menu contact view
+    // 13 : menu example view
+    // 14 : menu account view
+    // 2 : write view
+    // 3 : chat view
+    // 4 : message view
+    const [view, setView] = useState(0);
 
-  const onMessage = (recipientId) => {
-    const senderId = userData.username;
-    if(senderId && recipientId) {
-      setMessagers((prev) => ({ 
-        ...prev,
-        senderId: senderId,
-        recipientId: recipientId
-      }));
-      setCurrView(4);
-    }
-  };
-
-  useEffect(() => {
-    onGetPostDataList();
-  }, []);
+    // chat receiver
+    const [receiverUserName, setReceiverUserName] = useState(null);
 
     useEffect(() => {
         (async () => {
             const isAuthenticated = await authenticate();
             if(isAuthenticated) {
             } else {
-                setAuthorized(2);
+                setPage(2);
             }
         })();
-    }, [currView]);
+    }, [view]);
 
-  return (
-    <div className='main-page'>
-      <div className='main-panel'>
-        <Header />
+    return (
+        <div className='main-page'>
+            <div className='main-panel'>
 
-        {currView === 0 && <Content postDataList={postDataList} onMessage={onMessage} />}
-        {currView === 1 && <Menu setAuthorized={setAuthorized} setCurrView={setCurrView} />}
-        {currView === 11 && <About />}
-        {currView === 12 && <Contact />}
-        {currView === 13 && <Example setAuthorized={setAuthorized} />}
-        {currView === 14 && <Account />}
-        {currView === 2 && <Write setCurrView={setCurrView} />}
-        {currView === 3 && <Chat onMessage={onMessage} />}
-        {currView === 4 && <Message messagers={messagers} />}
-        
-        <Footer setCurrView={setCurrView} />
-      </div>
-    </div>
-  );
+                <ViewContext.Provider value={setView}>
+                    
+                    <Header />
+
+                    {view === View.POST && <Content setReceiverUserName={setReceiverUserName} />}
+                    {view === View.MENU && <Menu />}
+                    {view === View.ABOUT && <About />}
+                    {view === View.CONTACT && <Contact />}
+                    {view === View.EXAMPLE && <Example />}
+                    {view === View.ACCOUNT && <Account />}
+                    {view === View.WRITE && <Write />}
+                    {view === View.CHAT && <Chat setReceiverUserName={setReceiverUserName} />}
+                    {view === View.MESSAGE && <Message receiverUserName={receiverUserName} />}
+
+                    <Footer />
+
+                </ViewContext.Provider>                
+
+            </div>
+        </div>
+    );
 }
 
 export default Main;

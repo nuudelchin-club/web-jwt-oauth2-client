@@ -3,12 +3,16 @@ import './Write.css';
 import { useEffect, useContext, useRef } from 'react';
 import { authenticate } from '../util/Token';
 import { UserContext } from '../util/Context';
+import { ViewContext } from '../util/Context';
+import { View } from '../util/Const';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Write({setCurrView}) {
+function Write({}) {
 
     const userData = useContext(UserContext);
+    const setView = useContext(ViewContext);
+
     const textareaRef = useRef(null);
 
     useEffect(() => {
@@ -31,7 +35,7 @@ function Write({setCurrView}) {
     .then((data) => { 
       if(data === "OK") {
         alert("Нийтлэл хадгалагдлаа.")
-        setCurrView(0);
+        setView(View.POST);
       }
     })
     .catch((error) => { console.error('Error:', error); })

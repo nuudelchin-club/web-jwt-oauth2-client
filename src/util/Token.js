@@ -1,5 +1,6 @@
 const apiUrl = process.env.REACT_APP_API_URL;
 
+// reissue tokens (access and refresh)
 export const authenticate = async () => {console.log("authenticate")
     try {
         const response = await fetch(`${apiUrl}/reissue`, {
@@ -13,7 +14,8 @@ export const authenticate = async () => {console.log("authenticate")
     }
 };
 
-export const getCurrUserInfo = async () => {console.log("getCurrUserInfo")
+// logged in user data
+export const getUserData = async () => {console.log("getUserData")
     try {
         const response = await fetch(`${apiUrl}/user/getLoggedIn`, {
             method: 'GET',
