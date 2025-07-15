@@ -19,27 +19,27 @@ function Write({}) {
         textareaRef.current.focus();
     }, []);
 
-  const save = async (input) => {console.log("save")
-    fetch(`${apiUrl}/post/save`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: input,
-      credentials: "include",
-    })
-    .then((response) => { 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-      return response.text(); 
-    })
-    .then((data) => { 
-      if(data === "OK") {
-        alert("Нийтлэл хадгалагдлаа.")
-        setView(View.POST);
-      }
-    })
-    .catch((error) => { console.error('Error:', error); })
-  };
+    const save = async (input) => {console.log("save")
+        fetch(`${apiUrl}/post/save`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: input,
+        credentials: "include",
+        })
+        .then((response) => { 
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+        return response.text(); 
+        })
+        .then((data) => { 
+        if(data === "OK") {
+            alert("Нийтлэл хадгалагдлаа.")
+            setView(View.POST);
+        }
+        })
+        .catch((error) => { console.error('Error:', error); })
+    };
 
     const onUpload = async (input) => {
         const isAuthenticated = await authenticate();
@@ -58,38 +58,38 @@ function Write({}) {
     }    
   };
 
-  return (
-    <div className='main-content'>
-      <div className="write">
-        <div className="write-header">
-          <div className="author-icon">
-            {
-              userData.picture ?
-              <img src={userData.picture} alt="" />
-              :
-              <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
-            }            
-          </div>            
-          <div className="author-details">
-            <span className="author-name">{userData.fullname}</span>
-          </div>
+    return (
+        <div className='main-content'>
+            <div className="write">
+                <div className="write-header">
+                    <div className="author-icon">
+                        {
+                        userData.picture ?
+                        <img src={userData.picture} alt="" />
+                        :
+                        <img src={process.env.PUBLIC_URL + '/image/profile512.png'} alt="" />
+                        }            
+                    </div>            
+                    <div className="author-details">
+                        <span className="author-name">{userData.fullname}</span>
+                    </div>
+                </div>
+                <div className="write-content">
+                    <textarea
+                        ref={textareaRef}
+                        placeholder="What's on your mind?"
+                        onInput={e => e.target.style.height = `${e.target.scrollHeight}px`}
+                        required>
+                    </textarea>
+                </div>
+                <div className="write-footer">
+                    <button onClick={(event) => { handleUpload(event); } }>
+                        Нийтлэх
+                    </button>
+                </div>
+            </div>
         </div>
-        <div className="write-content">
-          <textarea
-            ref={textareaRef}
-            placeholder="What's on your mind?"
-            onInput={e => e.target.style.height = `${e.target.scrollHeight}px`}
-            required>
-          </textarea>
-        </div>
-        <div className="write-footer">
-          <button onClick={(event) => { handleUpload(event); } }>
-            Нийтлэх
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Write;
